@@ -1,6 +1,8 @@
 import React from 'react';
-import FriendInput from './FriendInput';
+import Friends from './Friends';
 import axios from 'axios';
+
+
 
 export default class Container extends React.Component {
   state = {
@@ -28,10 +30,6 @@ export default class Container extends React.Component {
     this.fetchFriendWithAxios();
   }
 
-  click = () => {
-    console.log("hello")
-  }
-
   render() {
     return (
       <div>
@@ -45,16 +43,9 @@ export default class Container extends React.Component {
           <div className='loading'>Loading friends...</div>
         }
 
-        {
-          this.state.friend && this.state.friend.map(friend => {
-            return <div key={friend.id}>
-              <div>Name: {friend.name}</div>
-              <div>Age: {friend.age}</div>
-              <div>Email: {friend.email}</div>
-            </div>
-          })}
-        <FriendInput></FriendInput>
-        <button onClick={this.click}></button>
+        
+        { this.state.friend && <Friends friend={this.state.friend} />
+        } 
       </div>
     );
   }
