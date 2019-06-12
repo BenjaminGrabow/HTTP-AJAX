@@ -44,7 +44,7 @@ export default class Container extends React.Component {
 
         {
           this.state.friend &&
-          <div>{this.state.friend.name}</div>
+          <div>{this.state.friend[1].name}</div>
         }
       </div>
     );
