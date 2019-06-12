@@ -1,6 +1,7 @@
 import React from 'react';
 import Friends from './Friends';
 import axios from 'axios';
+import FriendInput from './FriendInput';
 
 
 
@@ -9,6 +10,9 @@ export default class Container extends React.Component {
     friend: null,
     errorMessage: '',
     spinner: false,
+    name: "",
+    age: "",
+    email: "",
   }
 
   fetchFriendWithAxios = () => {
@@ -30,6 +34,40 @@ export default class Container extends React.Component {
     this.fetchFriendWithAxios();
   }
 
+  handleChange = (event) => {
+    const name = event.target.name;
+
+    const target = event.target.value;
+    
+    this.setState({
+            [name]: target,
+    })
+};
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    let name = this.state.name;
+    let age = Number(this.state.age);
+    let email = this.state.email;
+
+
+    axios.post('http://localhost:5000/friends', { name, age, email }).then(response => {
+      this.setState({
+        friend: response.data
+
+      })
+    })
+  };
+
+  deleteFriend = (id) => {
+const copyArray = this.state.friend;
+
+this.setState({
+  friend: copyArray.filter(friend => friend.id !== id)
+})
+  }
+
   render() {
     return (
       <div>
@@ -43,9 +81,9 @@ export default class Container extends React.Component {
           <div className='loading'>Loading friends...</div>
         }
 
-        
-        { this.state.friend && <Friends friend={this.state.friend} />
-        } 
+        {this.state.friend && <Friends friend={this.state.friend} delete={this.deleteFriend} />
+        }
+        <FriendInput handle={this.handleSubmit} changeHandle={this.handleChange} />
       </div>
     );
   }

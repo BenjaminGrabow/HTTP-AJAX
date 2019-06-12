@@ -1,11 +1,11 @@
 import React from 'react';
-import FriendsList from './Component/FriendsList/FriendsList';
+import FriendsContainer from './Component/FriendsList/FriendsContainer';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <FriendsList></FriendsList>
+      <FriendsContainer></FriendsContainer>
     </div>
   );
 }

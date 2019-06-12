@@ -1,12 +1,11 @@
 import React from 'react';
 import FriendInput from './FriendInput';
 import SubFriend from './SubFriend';
-import All from './All';
+import AllFriends from './AllFriends';
 import { NavLink, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNav = styled.nav`
-
 display: flex;
 background-color: black;
 justify-content: space-between;
@@ -15,8 +14,7 @@ height: 1.5rem;
 
 a {
         text-decoration: none;
-        color: white;
-       
+        color: white; 
 }
 `;
 
@@ -24,20 +22,16 @@ const Friends = (props) => {
         return (
                 <div>
                         <StyledNav>
+                                <NavLink to="/" >Home</NavLink>
+                                {props.friend.map(friend => {
+                                        return <NavLink key={friend.id} to={`/${friend.name}`} >{friend.name}</NavLink>
 
-                        <NavLink to="/" >Home</NavLink>
+                                })}
+                        </StyledNav>
                         {props.friend.map(friend => {
-                                return <NavLink key={friend.id} to={`/${friend.name}`} >{friend.name}</NavLink>
-                               
+                                return <Route key={friend.id} path={`/${friend.name}`} render={() => <SubFriend {...props} friendData={friend} />} ></Route>
                         })}
-</StyledNav>
-
-                        {props.friend.map(friend => {
-                                return <Route key={friend.id} path={`/${friend.name}`} render={() => <SubFriend {...props} friendData={friend.subLink} />} ></Route>
-                        })}
-                        <Route exact path="/" render={() => <All {...props} friendly={props.friend} />} ></Route>
-                        <FriendInput></FriendInput>
-
+                        <Route exact path="/" render={() => <AllFriends {...props} deleter={props.delete} friendly={props.friend} />} ></Route>
                 </div>
         );
 }

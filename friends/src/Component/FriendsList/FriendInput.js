@@ -1,76 +1,18 @@
 import React from 'react';
-import axios from 'axios';
 
 
-export default class FriendInput extends React.Component {
-        state = {
-                id: "",
-                name: "",
-                age: "",
-                email: ""
-        }
+const FriendInput = (props) => {
 
-        handleChangeId = (event) => {
-                this.setState({
-                        id: event.target.value
-                })
-        };
-
-        handleChangeName = (event) => {
-                this.setState({
-                        name: event.target.value
-                })
-        };
-
-        handleChangeAge = (event) => {
-                this.setState({
-                        age: event.target.value
-                })
-        };
-
-        handleChangeEmail = (event) => {
-                this.setState({
-                        email: event.target.value
-                })
-        };
-
-        handleSubmit = (event) => {
-                event.preventDefault();
-
-                let name = this.state.name;
-                let age = Number(this.state.age);
-                let email = this.state.email;
-
-
-                axios.post('http://localhost:5000/friends', { name, age, email }).then(response => {
-                        console.log(response);
-                        console.log(response.data)
-                })
-        };
-
-        render() {
                 return (
                         <div>
-                                <form onSubmit={this.handleSubmit}>
-                                        <label>
-                                                Person Id:
-                        <input type="text" name="id" onChange={this.handleChangeId} ></input>
-                                        </label>
-                                        <label>
-                                                Person Name:
-                        <input type="text" name="name" onChange={this.handleChangeName} ></input>
-                                        </label>
-                                        <label>
-                                                Person Age:
-                        <input type="text" name="age" onChange={this.handleChangeAge} ></input>
-                                        </label>
-                                        <label>
-                                                Person Email:
-                        <input type="text" name="email" onChange={this.handleChangeEmail} ></input>
-                                        </label>
+                                <form onSubmit={props.handle} >
+                        <input type="text" name="name" onChange={props.changeHandle} placeholder="Add Name" ></input>
+                        <input type="text" name="age" onChange={props.changeHandle} placeholder="Add Age" ></input>
+                        <input type="text" name="email" onChange={props.changeHandle} placeholder="Add Email" ></input>
                                         <button type="submit" >Add Friend</button>
                                 </form>
                         </div>
                 );
         }
-}
+
+export default FriendInput;
