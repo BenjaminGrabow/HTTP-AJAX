@@ -8,6 +8,11 @@ background: linear-gradient(to right,#240b36,#c31432);
 border-radius: 50%;
 margin: 0 16rem;
 box-shadow: 1rem .5rem .5rem black;
+transition: all 2s ease-in;
+
+&:hover{
+        transform: rotate(30deg);
+}
 `;
 
 const StyledDiv = styled.div`

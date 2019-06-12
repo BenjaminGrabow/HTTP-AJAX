@@ -17,6 +17,11 @@ justify-content: space-around;
 border-radius: 3rem;
 align-items: center;
 box-shadow: 1rem .5rem .5rem black;
+transition: all 2s ease-in;
+
+&:hover{
+        transform: rotate(30deg);
+}
 
 button {
 background-color: red;
