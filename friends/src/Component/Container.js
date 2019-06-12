@@ -51,6 +51,7 @@ export default class Container extends React.Component {
                    <div>Email: {friend.email}</div>
                    </div>
                  })}
+                 <FriendInput></FriendInput>
       </div>
     );
   }
