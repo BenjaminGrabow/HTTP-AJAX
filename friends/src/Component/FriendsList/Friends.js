@@ -1,5 +1,4 @@
 import React from 'react';
-import FriendInput from './FriendInput';
 import SubFriend from './SubFriend';
 import AllFriends from './AllFriends';
 import { NavLink, Route } from 'react-router-dom';

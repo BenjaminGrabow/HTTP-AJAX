@@ -12,19 +12,29 @@ background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, F
 display: flex;
 color: white;
 width: 50%;
-margin: 0 auto;
+margin: 1rem auto;
+justify-content: space-around;
+border-radius: 3rem;
+align-items: center;
+
+button {
+background-color: red;
+border-radius: 50%;
+width: 15%;
+height: 5rem;
+}
 `;
 
-const All = (props) => {
+const AllFriends = (props) => {
         return (
 
                 <StyledContainer>
                         {props.friendly.map(friend => {
-                                return  <StyledDiv>
+                                return  <StyledDiv key={friend.id}>
                                         <div className="friend">
-                                        <div>Name: {friend.name}</div>
-                                        <div>Age: {friend.age}</div>
-                                        <div>Email: {friend.email}</div>
+                                        <p>Name: {friend.name}</p>
+                                        <p>Age: {friend.age}</p>
+                                        <p>Email: {friend.email}</p>
                                         </div>
                                         <button onClick={() => props.deleter(friend.id)}>Delete</button>
                                         <button onClick={() => props.updater(friend.id)}>Update</button>
@@ -34,4 +44,4 @@ const All = (props) => {
         );
 }
 
-export default All;
+export default AllFriends;
