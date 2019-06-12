@@ -15,16 +15,13 @@ a {
         margin: .5rem;
         padding: .5rem;
 }
-
 `;
-
 
 const Header = () => {
         return (
                 <StyledNav>
                         <NavLink to="/">Home</NavLink>
                         <NavLink to="/friends">Friends</NavLink>
-
 
                         <Route path="/friends" component={FriendsList}></Route>
                 </StyledNav>);

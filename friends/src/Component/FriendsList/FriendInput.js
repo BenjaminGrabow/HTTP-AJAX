@@ -37,17 +37,15 @@ export default class FriendInput extends React.Component {
         handleSubmit = (event) => {
                 event.preventDefault();
 
-                const user = {
-                        id: this.state.id,
-                        name: this.state.name,
-                        age: this.state.age,
-                        email: this.state.email
-                }
+                let name = this.state.name;
+                let age = Number(this.state.age);
+                let email = this.state.email;
 
-                axios.post('http://localhost:5000/friends', { user }).then(response => {
-                                console.log(response);
-                                console.log(response.data)
-                        })
+
+                axios.post('http://localhost:5000/friends', { name, age, email }).then(response => {
+                        console.log(response);
+                        console.log(response.data)
+                })
         };
 
         render() {
