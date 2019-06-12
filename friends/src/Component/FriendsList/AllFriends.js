@@ -26,7 +26,8 @@ const All = (props) => {
                                         <div>Age: {friend.age}</div>
                                         <div>Email: {friend.email}</div>
                                         </div>
-                                        <button onClick={() => props.deleter(friend.id)}>X</button>
+                                        <button onClick={() => props.deleter(friend.id)}>Delete</button>
+                                        <button onClick={() => props.updater(friend.id)}>Update</button>
                                 </StyledDiv>
                         })}
                 </StyledContainer>

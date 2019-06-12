@@ -31,7 +31,7 @@ const Friends = (props) => {
                         {props.friend.map(friend => {
                                 return <Route key={friend.id} path={`/${friend.name}`} render={() => <SubFriend {...props} friendData={friend} />} ></Route>
                         })}
-                        <Route exact path="/" render={() => <AllFriends {...props} deleter={props.delete} friendly={props.friend} />} ></Route>
+                        <Route exact path="/" render={() => <AllFriends {...props} updater={props.update} deleter={props.delete} friendly={props.friend} />} ></Route>
                 </div>
         );
 }

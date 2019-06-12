@@ -38,11 +38,11 @@ export default class Container extends React.Component {
     const name = event.target.name;
 
     const target = event.target.value;
-    
+
     this.setState({
-            [name]: target,
+      [name]: target,
     })
-};
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -55,18 +55,31 @@ export default class Container extends React.Component {
     axios.post('http://localhost:5000/friends', { name, age, email }).then(response => {
       this.setState({
         friend: response.data
-
       })
     })
   };
 
   deleteFriend = (id) => {
-const copyArray = this.state.friend;
+    const copyArray = this.state.friend;
 
-this.setState({
-  friend: copyArray.filter(friend => friend.id !== id)
-})
+    this.setState({
+      friend: copyArray.filter(friend => friend.id !== id)
+    })
+  };
+
+  updateFriend = (id) => {
+    this.setState(state => ({
+      friend: state.friend.map(friend => {
+        if (friend.id === id) {
+          friend.name = state.name;
+          friend.age = state.age;
+          friend.email = state.email
+        }
+        return friend;
+      })
+    }));
   }
+
 
   render() {
     return (
@@ -81,7 +94,7 @@ this.setState({
           <div className='loading'>Loading friends...</div>
         }
 
-        {this.state.friend && <Friends friend={this.state.friend} delete={this.deleteFriend} />
+        {this.state.friend && <Friends friend={this.state.friend} delete={this.deleteFriend} update={this.updateFriend} />
         }
         <FriendInput handle={this.handleSubmit} changeHandle={this.handleChange} />
       </div>
