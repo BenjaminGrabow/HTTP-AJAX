@@ -1,11 +1,11 @@
 import React from 'react';
-import FriendsList from './Component/FriendsList/FriendsList';
+import Header from './Component/Header/Header';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <FriendsList></FriendsList>
+      <Header></Header>
     </div>
   );
 }
