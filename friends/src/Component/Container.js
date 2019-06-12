@@ -43,9 +43,13 @@ export default class Container extends React.Component {
         }
 
         {
-          this.state.friend &&
-          <div>{this.state.friend[1].name}</div>
-        }
+          this.state.friend &&  this.state.friend.map(friend => {
+                return   <div key={friend.id}>
+                   <div>Name: {friend.name}</div>
+                   <div>Age: {friend.age}</div>
+                   <div>Email: {friend.email}</div>
+                   </div>
+                 })}
       </div>
     );
   }
