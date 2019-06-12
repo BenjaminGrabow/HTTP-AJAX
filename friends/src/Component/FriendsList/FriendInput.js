@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
-
+position: fixed;
+bottom: 0;
+left: 0;
 width: 100%;
 height: 4rem;
 
@@ -13,7 +15,8 @@ form {
 }
 input {
     border-radius: 3rem; 
-    margin-top: .5rem;   
+    margin-top: .5rem;
+    box-shadow: 1rem .5rem .5rem black;   
 }
 
 button {
@@ -21,7 +24,8 @@ button {
 background-color: red;
 border-radius: 50%;
 width: 15%;
-height: 3rem;    
+height: 3rem;
+box-shadow: 1rem .5rem .5rem black;
 }
 `;
 

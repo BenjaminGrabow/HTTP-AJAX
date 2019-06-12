@@ -16,12 +16,14 @@ margin: 1rem auto;
 justify-content: space-around;
 border-radius: 3rem;
 align-items: center;
+box-shadow: 1rem .5rem .5rem black;
 
 button {
 background-color: red;
 border-radius: 50%;
 width: 15%;
 height: 5rem;
+box-shadow: 1rem .5rem .5rem black;
 }
 `;
 
