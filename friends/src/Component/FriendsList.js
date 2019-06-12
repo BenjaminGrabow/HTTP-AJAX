@@ -11,7 +11,6 @@ export default class Container extends React.Component {
   }
 
   fetchFriendWithAxios = () => {
-    // turn spinner on
     this.setState({ spinner: true });
 
     axios.get('http://localhost:5000/friends')
