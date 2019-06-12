@@ -9,11 +9,12 @@ display: flex;
 background-color: black;
 justify-content: space-between;
 width: 100%;
-height: 1.5rem;
+height: 4rem;
 
 a {
         text-decoration: none;
-        color: white; 
+        color: white;
+        font-size: 2rem;
 }
 `;
 

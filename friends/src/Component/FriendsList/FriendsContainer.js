@@ -2,6 +2,12 @@ import React from 'react';
 import Friends from './Friends';
 import axios from 'axios';
 import FriendInput from './FriendInput';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+
+background-color: black;
+`;
 
 
 
@@ -83,7 +89,7 @@ export default class Container extends React.Component {
 
   render() {
     return (
-      <div>
+      <StyledDiv>
         {
           this.state.errorMessage &&
           <div className='error'>{this.state.errorMessage}</div>
@@ -97,7 +103,7 @@ export default class Container extends React.Component {
         {this.state.friend && <Friends friend={this.state.friend} delete={this.deleteFriend} update={this.updateFriend} />
         }
         <FriendInput handle={this.handleSubmit} changeHandle={this.handleChange} />
-      </div>
+      </StyledDiv>
     );
   }
 }
