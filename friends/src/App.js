@@ -1,5 +1,5 @@
 import React from 'react';
-import FriendsList from './Component/FriendsList';
+import FriendsList from './Component/FriendsList/FriendsList';
 import './App.css';
 
 function App() {
