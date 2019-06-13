@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledDiv = styled.div`
 display: flex;
@@ -15,6 +16,22 @@ height: 25rem;
 background: #c31432;
 background: -webkit-linear-gradient(to right,#240b36,#c31432);
 background: linear-gradient(to right,#240b36,#c31432);
+box-shadow: 1rem .5rem .5rem black;
+
+input {
+    border-radius: 3rem; 
+    margin-top: .5rem;
+    box-shadow: 1rem .5rem .5rem black;
+    font-size: 1.5rem; 
+}
+
+.unactive {
+        display: none;
+}
+
+.active {
+        display: flex;
+}
 
 button {
   margin-top: 2rem;
@@ -35,17 +52,35 @@ a {
 class LoginPage extends React.Component {
         constructor(props) {
                 super(props);
-                this.state = {  }
+                this.state = { 
+                        password: '',
+                        username: '',
+                 }
         }
+
+        changePassword = (event) => {
+                this.setState({ password: event.target.value })
+                
+              }
+            
+              changeUsername = (event) => {
+                this.setState({ username: event.target.value })
+              }
+
         render() { 
                 return ( 
                         <StyledDiv>       
                 <h1>Login Here</h1>
                 <p>Username</p>
-                <input onChange={this.theUsername} type="text" name="" placeholder="Enter Username" />
+                <input onChange={this.changeUsername} type="text" name="" placeholder="Enter Username" />
                 <p>Password</p>
-                <input onChange={this.thePassword} type="password" name="" placeholder="Enter Password" />
-                <button><a href="/friends">Login</a></button>
+                <input onChange={this.changePassword} type="password" name="" placeholder="Enter Password" />
+                <button className={ 
+                        this.state.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/) 
+                        && this.state.username.length > 5
+                 ? "active" : 'unactive'}>
+                         <Link to="/friends">Login</Link>
+                         </button>
                 </StyledDiv>
                  );
         }
