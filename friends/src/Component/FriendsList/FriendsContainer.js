@@ -56,41 +56,40 @@ export default class Container extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-   const newFriend = {
-     name:  this.state.name,
-     age: Number(this.state.age),
-     email: this.state.email,
+    const newFriend = {
+      name: this.state.name,
+      age: Number(this.state.age),
+      email: this.state.email,
     }
 
-    axios.post(friendsAPI,newFriend )
-    .then(response => {
-      this.setState({
-        friend: response.data
+    axios.post(friendsAPI, newFriend)
+      .then(response => {
+        this.setState({
+          friend: response.data
+        })
       })
-    })
   };
 
   deleteFriend = (id) => {
-axios.delete(`${friendsAPI}/${id}`)
-.then(res => this.setState({
-  friend: res.data 
-}))
+    axios.delete(`${friendsAPI}/${id}`)
+      .then(res => this.setState({
+        friend: res.data
+      }))
   };
 
   updateFriend = (id) => {
     const updatedFriend = {
-        name: this.state.name,
-         age: this.state.age,
-         email: this.state.email,
-      }
+      name: this.state.name,
+      age: this.state.age,
+      email: this.state.email,
+    }
 
-      axios.put(`${friendsAPI}/${id}`, updatedFriend).then(res => {
-        this.setState({
-          friend: res.data
-        })
+    axios.put(`${friendsAPI}/${id}`, updatedFriend).then(res => {
+      this.setState({
+        friend: res.data
       })
+    })
   }
-
 
   render() {
     return (
@@ -105,9 +104,14 @@ axios.delete(`${friendsAPI}/${id}`)
           <div className='loading'>Loading friends...</div>
         }
 
-        {this.state.friend && <Friends friend={this.state.friend} delete={this.deleteFriend} update={this.updateFriend} />
+        {this.state.friend && <Friends
+          friend={this.state.friend}
+          delete={this.deleteFriend}
+          update={this.updateFriend} />
         }
-        <FriendInput handle={this.handleSubmit} changeHandle={this.handleChange} />
+        <FriendInput
+          handle={this.handleSubmit}
+          changeHandle={this.handleChange} />
       </StyledDiv>
     );
   }
