@@ -62,7 +62,8 @@ export default class Container extends React.Component {
      email: this.state.email,
     }
 
-    axios.post(friendsAPI,newFriend ).then(response => {
+    axios.post(friendsAPI,newFriend )
+    .then(response => {
       this.setState({
         friend: response.data
       })
@@ -70,25 +71,24 @@ export default class Container extends React.Component {
   };
 
   deleteFriend = (id) => {
-   
-axios.delete(`${friendsAPI}/${id}`).then(res => this.setState({
+axios.delete(`${friendsAPI}/${id}`)
+.then(res => this.setState({
   friend: res.data 
 }))
-    
-      // friend: copyArray.filter(friend => friend.id !== id)
   };
 
   updateFriend = (id) => {
-    this.setState(state => ({
-      friend: state.friend.map(friend => {
-        if (friend.id === id) {
-          friend.name = state.name;
-          friend.age = state.age;
-          friend.email = state.email
-        }
-        return friend;
+    const updatedFriend = {
+        name: this.state.name,
+         age: this.state.age,
+         email: this.state.email,
+      }
+
+      axios.put(`${friendsAPI}/${id}`, updatedFriend).then(res => {
+        this.setState({
+          friend: res.data
+        })
       })
-    }));
   }
 
 
