@@ -31,6 +31,7 @@ export default class Container extends React.Component {
     name: "",
     age: "",
     email: "",
+    button: 'Show'
   }
 
   showFriends = (e) => {
@@ -39,7 +40,8 @@ export default class Container extends React.Component {
 
     axios.get('http://localhost:5000/friends')
       .then(response => {
-        this.setState({ friend: response.data });
+        this.setState({ friend: response.data,
+        button: 'Hide' });
       })
       .catch(error => {
         this.setState({ errorMessage: error.message });
@@ -55,7 +57,8 @@ export default class Container extends React.Component {
       .then(response => {
         this.setState({
           friend: null,
-          spinner: false
+          spinner: false,
+          button: 'Show'
         });
       })
   }
@@ -127,8 +130,8 @@ export default class Container extends React.Component {
           delete={this.deleteFriend}
           update={this.updateFriend} />
         }
-        <button className="button" onClick={this.showFriends}>Show</button>
-        <button className="button" onClick={this.hide}>Hide</button>
+        <button className="button" onClick={this.state.button === 'Show' ? this.showFriends : this.hide}>{this.state.button}</button>
+        {/* <button className="button" onClick={this.hide}>Hide</button> */}
         <FriendInput
           handle={this.handleSubmit}
           changeHandle={this.handleChange}
