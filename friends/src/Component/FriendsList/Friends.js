@@ -28,10 +28,10 @@ const Friends = (props) => {
         return (
                 <StyledContainer>
                         <StyledNav>
-                                <NavLink to="/" >Home</NavLink>
+                                <NavLink to="/friends" >Home</NavLink>
                                 {props.friend.map(friend => {
                                         return <NavLink key={friend.id}
-                                                to={`/${friend.id}`}>
+                                                to={`/friends/${friend.id}`}>
                                                 {friend.name}
                                         </NavLink>
                                 })}
@@ -39,12 +39,12 @@ const Friends = (props) => {
                         {props.friend.map(friend => {
                                 return <Route
                                         key={friend.id}
-                                        path={`/${friend.id}`}
+                                        path={`/friends/${friend.id}`}
                                         render={() => <SubFriend {...props}
                                                 friendData={friend} />}>
                                 </Route>
                         })}
-                        <Route exact path="/" render={() => <AllFriends
+                        <Route exact path="/friends" render={() => <AllFriends
                                 {...props}
                                 updater={props.update}
                                 deleter={props.delete}
