@@ -12,7 +12,7 @@ background: linear-gradient(to right, #2c3e50, #bdc3c7); /* W3C, IE 10+/ Edge, F
 height: 210vh;
 `;
 
-
+const friendsAPI = 'http://localhost:5000/friends';
 
 export default class Container extends React.Component {
   state = {
@@ -56,12 +56,13 @@ export default class Container extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    let name = this.state.name;
-    let age = Number(this.state.age);
-    let email = this.state.email;
+   const newFriend = {
+     name:  this.state.name,
+     age: Number(this.state.age),
+     email: this.state.email,
+    }
 
-
-    axios.post('http://localhost:5000/friends', { name, age, email }).then(response => {
+    axios.post(friendsAPI,newFriend ).then(response => {
       this.setState({
         friend: response.data
       })
@@ -69,11 +70,12 @@ export default class Container extends React.Component {
   };
 
   deleteFriend = (id) => {
-    const copyArray = this.state.friend;
-
-    this.setState({
-      friend: copyArray.filter(friend => friend.id !== id)
-    })
+   
+axios.delete(`${friendsAPI}/${id}`).then(res => this.setState({
+  friend: res.data 
+}))
+    
+      // friend: copyArray.filter(friend => friend.id !== id)
   };
 
   updateFriend = (id) => {
