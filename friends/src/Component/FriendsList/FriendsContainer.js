@@ -20,7 +20,6 @@ box-shadow: 1rem .5rem .5rem black;
 
 }
 `;
-const button = document.getElementsByClassName("button");
 
 const friendsAPI = 'http://localhost:5000/friends';
 
@@ -35,43 +34,32 @@ export default class Container extends React.Component {
   }
 
   showFriends = (e) => {
-  
+
     this.setState({ spinner: true });
 
-    if (button[0].textContent === "Show") {
-
-
-      axios.get('http://localhost:5000/friends')
-        .then(response => {
-          this.setState({ friend: response.data });
-        })
-        .catch(error => {
-          this.setState({ errorMessage: error.message });
-        })
-        .finally(() => {
-          this.setState({ spinner: false });
-        })
-
-      if (button[0].textContent === "Show") {
-
-        button[0].textContent = "Hide";
-
-        if (button[0].textContent === "Hide") {
-          button[0].onclick = this.hide;
-
-          }
-      }
-    }
+    axios.get('http://localhost:5000/friends')
+      .then(response => {
+        this.setState({ friend: response.data });
+      })
+      .catch(error => {
+        this.setState({ errorMessage: error.message });
+      })
+      .finally(() => {
+        this.setState({ spinner: false });
+      })
   }
 
   hide = () => {
 
     axios.get('http://localhost:5000/friends')
-        .then(response => {
-          this.setState({ friend: null,
-          spinner: false });
-        })
-      
+      .then(response => {
+        this.setState({
+          friend: null,
+          spinner: false
+        });
+      })
+  }
+
   handleChange = (event) => {
     const name = event.target.name;
 
@@ -121,9 +109,7 @@ export default class Container extends React.Component {
   }
 
   render() {
-    // if( button[0].textContent === "Hide") {
-    //   button[0].appendChild()
-    // }
+
     return (
       <StyledDiv>
         {
@@ -142,6 +128,7 @@ export default class Container extends React.Component {
           update={this.updateFriend} />
         }
         <button className="button" onClick={this.showFriends}>Show</button>
+        <button className="button" onClick={this.hide}>Hide</button>
         <FriendInput
           handle={this.handleSubmit}
           changeHandle={this.handleChange}
