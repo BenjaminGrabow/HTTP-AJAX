@@ -10,6 +10,15 @@ background: #bdc3c7;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #2c3e50, #bdc3c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 height: 210vh;
+
+button {
+background-color: red;
+border-radius: 50%;
+width: 15%;
+height: 5rem;
+box-shadow: 1rem .5rem .5rem black;
+
+}
 `;
 
 const friendsAPI = 'http://localhost:5000/friends';
@@ -27,6 +36,10 @@ export default class Container extends React.Component {
   fetchFriendWithAxios = () => {
     this.setState({ spinner: true });
 
+    const button = document.getElementsByClassName("unactive");
+    
+    button[0].textContent = "Hide";
+
     axios.get('http://localhost:5000/friends')
       .then(response => {
         this.setState({ friend: response.data });
@@ -37,10 +50,6 @@ export default class Container extends React.Component {
       .finally(() => {
         this.setState({ spinner: false });
       });
-  }
-
-  componentDidMount() {
-    this.fetchFriendWithAxios();
   }
 
   handleChange = (event) => {
@@ -109,9 +118,11 @@ export default class Container extends React.Component {
           delete={this.deleteFriend}
           update={this.updateFriend} />
         }
+        <button className="unactive" onClick={this.fetchFriendWithAxios}>Show</button>
         <FriendInput
           handle={this.handleSubmit}
-          changeHandle={this.handleChange} />
+          changeHandle={this.handleChange} 
+          showFriend={this.fetchFriendWithAxios}/>
       </StyledDiv>
     );
   }
