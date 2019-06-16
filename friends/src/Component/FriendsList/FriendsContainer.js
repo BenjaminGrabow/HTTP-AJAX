@@ -9,10 +9,20 @@ const StyledDiv = styled.div`
 background: #bdc3c7;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #2c3e50, #bdc3c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-height: 210vh;
+height: 220vh;
+
+.button {
+  margin-top: 2rem;
+background-color: red;
+border-radius: 50%;
+width: 15%;
+height: 5rem;
+box-shadow: 1rem .5rem .5rem black;
+
+}
 `;
 
-
+const friendsAPI = 'http://localhost:5000/friends';
 
 export default class Container extends React.Component {
   state = {
@@ -22,25 +32,36 @@ export default class Container extends React.Component {
     name: "",
     age: "",
     email: "",
+    button: 'Show'
   }
 
-  fetchFriendWithAxios = () => {
+  showFriends = (e) => {
+
     this.setState({ spinner: true });
 
     axios.get('http://localhost:5000/friends')
       .then(response => {
-        this.setState({ friend: response.data });
+        this.setState({ friend: response.data,
+        button: 'Hide' });
       })
       .catch(error => {
         this.setState({ errorMessage: error.message });
       })
       .finally(() => {
         this.setState({ spinner: false });
-      });
+      })
   }
 
-  componentDidMount() {
-    this.fetchFriendWithAxios();
+  hide = () => {
+
+    axios.get('http://localhost:5000/friends')
+      .then(response => {
+        this.setState({
+          friend: null,
+          spinner: false,
+          button: 'Show'
+        });
+      })
   }
 
   handleChange = (event) => {
@@ -56,41 +77,43 @@ export default class Container extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    let name = this.state.name;
-    let age = Number(this.state.age);
-    let email = this.state.email;
+    const newFriend = {
+      name: this.state.name,
+      age: Number(this.state.age),
+      email: this.state.email,
+    }
 
-
-    axios.post('http://localhost:5000/friends', { name, age, email }).then(response => {
-      this.setState({
-        friend: response.data
+    axios.post(friendsAPI, newFriend)
+      .then(response => {
+        this.setState({
+          friend: response.data
+        })
       })
-    })
   };
 
   deleteFriend = (id) => {
-    const copyArray = this.state.friend;
-
-    this.setState({
-      friend: copyArray.filter(friend => friend.id !== id)
-    })
+    axios.delete(`${friendsAPI}/${id}`)
+      .then(res => this.setState({
+        friend: res.data
+      }))
   };
 
   updateFriend = (id) => {
-    this.setState(state => ({
-      friend: state.friend.map(friend => {
-        if (friend.id === id) {
-          friend.name = state.name;
-          friend.age = state.age;
-          friend.email = state.email
-        }
-        return friend;
+    const updatedFriend = {
+      name: this.state.name,
+      age: this.state.age,
+      email: this.state.email,
+    }
+
+    axios.put(`${friendsAPI}/${id}`, updatedFriend).then(res => {
+      this.setState({
+        friend: res.data
       })
-    }));
+    })
   }
 
-
   render() {
+
     return (
       <StyledDiv>
         {
@@ -103,9 +126,17 @@ export default class Container extends React.Component {
           <div className='loading'>Loading friends...</div>
         }
 
-        {this.state.friend && <Friends friend={this.state.friend} delete={this.deleteFriend} update={this.updateFriend} />
+        {this.state.friend && <Friends
+          friend={this.state.friend}
+          delete={this.deleteFriend}
+          update={this.updateFriend} />
         }
-        <FriendInput handle={this.handleSubmit} changeHandle={this.handleChange} />
+        <button className="button" onClick={this.state.button === 'Show' ? this.showFriends : this.hide}>{this.state.button}</button>
+        {/* <button className="button" onClick={this.hide}>Hide</button> */}
+        <FriendInput
+          handle={this.handleSubmit}
+          changeHandle={this.handleChange}
+          showFriend={this.fetchFriendWithAxios} />
       </StyledDiv>
     );
   }

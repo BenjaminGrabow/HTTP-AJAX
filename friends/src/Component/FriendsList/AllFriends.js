@@ -37,11 +37,11 @@ const AllFriends = (props) => {
 
                 <StyledContainer>
                         {props.friendly.map(friend => {
-                                return  <StyledDiv key={friend.id}>
+                                return <StyledDiv key={friend.id}>
                                         <div className="friend">
-                                        <p>Name: {friend.name}</p>
-                                        <p>Age: {friend.age}</p>
-                                        <p>Email: {friend.email}</p>
+                                                <p>Name: {friend.name}</p>
+                                                <p>Age: {friend.age}</p>
+                                                <p>Email: {friend.email}</p>
                                         </div>
                                         <button onClick={() => props.deleter(friend.id)}>Delete</button>
                                         <button onClick={() => props.updater(friend.id)}>Update</button>
